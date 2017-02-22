@@ -28,6 +28,7 @@ self.addEventListener('activate', function (e) {
 var filesToCache = [
   '/',
   '/index.html',
+  '/favicon.ico',
   '/scripts/app.js',
   '/styles/inline.css',
   '/images/clear.png',
@@ -53,9 +54,8 @@ self.addEventListener('fetch', function (e) {
         e.respondWith(fetch(e.request)
             .then(function (response) {
                 return caches.open(dataCacheName).then(function (cache) {
-                    cache.put(e.request.url, responseToCache);//response.clone());
-                    console.log('[ServiceWorker] Fetched&Cached Data');
-                    Var responseToCache = response.clone();
+                    cache.put(e.request.url, response.clone());
+                    console.log('[ServiceWorker] Fetched&Cached Data');                    
                     return response;                    
                 });                
             })

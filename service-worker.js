@@ -47,7 +47,7 @@ var filesToCache = [
 
 self.addEventListener('fetch', function (e) {
     console.log('[ServiceWorker] Fetch', e.request.url);
-    var dataUrl = 'https://henriquetgoncalves.github.io/'//'https://publicdata-weather.firebaseio.com/';
+    var dataUrl = 'https://henriquetgoncalves.github.io/progressivewebapp/'//'https://publicdata-weather.firebaseio.com/';
     
     if (e.request.url.indexOf(dataUrl) === 0) {
         e.respondWith(fetch(e.request)

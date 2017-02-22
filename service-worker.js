@@ -26,24 +26,24 @@ self.addEventListener('activate', function (e) {
     );
 });
 var filesToCache = [
-  '/',
-  '/index.html',
-  '/favicon.ico',
-  '/scripts/app.js',
-  '/styles/inline.css',
-  '/images/clear.png',
-  '/images/cloudy-scattered-showers.png',
-  '/images/cloudy.png',
-  '/images/fog.png',
-  '/images/ic_add_white_24px.svg',
-  '/images/ic_refresh_white_24px.svg',
-  '/images/partly-cloudy.png',
-  '/images/rain.png',
-  '/images/scattered-showers.png',
-  '/images/sleet.png',
-  '/images/snow.png',
-  '/images/thunderstorm.png',
-  '/images/wind.png'
+  'progressivewebapp/',
+  'progressivewebapp/index.html',
+  'progressivewebapp/favicon.ico',
+  'progressivewebapp/scripts/app.js',
+  'progressivewebapp/styles/inline.css',
+  'progressivewebapp/images/clear.png',
+  'progressivewebapp/images/cloudy-scattered-showers.png',
+  'progressivewebapp/images/cloudy.png',
+  'progressivewebapp/images/fog.png',
+  'progressivewebapp/images/ic_add_white_24px.svg',
+  'progressivewebapp/images/ic_refresh_white_24px.svg',
+  'progressivewebapp/images/partly-cloudy.png',
+  'progressivewebapp/images/rain.png',
+  'progressivewebapp/images/scattered-showers.png',
+  'progressivewebapp/images/sleet.png',
+  'progressivewebapp/images/snow.png',
+  'progressivewebapp/images/thunderstorm.png',
+  'progressivewebapp/images/wind.png'
 ];
 
 self.addEventListener('fetch', function (e) {

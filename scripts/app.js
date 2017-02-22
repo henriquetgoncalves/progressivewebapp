@@ -54,7 +54,8 @@
             ]
         }
     };
-    var app = { isLoading: true,
+    var app = {
+        isLoading: true,
         visibleCards: {},
         selectedCities: [],
         spinner: document.querySelector('.loader'),
@@ -175,20 +176,43 @@
      *
      ****************************************************************************/
 
-    // Gets a forecast for a specific city and update the card with the data
+    // Gets a forecast for a specific city and update the card with the data        
     app.getForecast = function (key, label) {
         var url = 'https://publicdata-weather.firebaseio.com/';
         url += key + '.json';
-        // Make the XHR to get the data, then update the card
+        if ('caches' in window) {
+            /*
+             * Check if the service worker has already cached this city's weather
+             * data. If the service worker has the data, then display the cached
+             * data while the app fetches the latest data.
+             */
+            caches.match(url).then(function (response) {
+                if (response) {
+                    response.json().then(function updateFromCache(json) {
+                        var results = json.query.results;
+                        results.key = key;
+                        results.label = label;
+                        results.created = json.query.created;
+                        app.updateForecastCard(results);
+                    });
+                }
+            });
+        }
+        // Fetch the latest data.
         var request = new XMLHttpRequest();
         request.onreadystatechange = function () {
             if (request.readyState === XMLHttpRequest.DONE) {
                 if (request.status === 200) {
                     var response = JSON.parse(request.response);
-                    response.key = key;
-                    response.label = label;
-                    app.updateForecastCard(response);
+                    var results = response.query.results;
+                    results.key = key;
+                    results.label = label;
+                    results.created = response.query.created;
+                    app.updateForecastCard(results);
                 }
+            } else {
+                // Return the initial weather forecast since no data is available.
+                app.updateForecastCard(initialWeatherForecast);
             }
         };
         request.open('GET', url);
@@ -239,18 +263,18 @@
     ];
         app.saveSelectedCities();
     }
-    
+
     //Registrando o arquivo service-worker
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('./service-worker.js').then(function(registration) {
-          // Registration was successful
-          console.log('ServiceWorker registration successful with scope: ', registration.scope);
-        }).catch(function(err) {
-          // registration failed :(
-          console.log('ServiceWorker registration failed: ', err);
+        window.addEventListener('load', function () {
+            navigator.serviceWorker.register('./service-worker.js').then(function (registration) {
+                // Registration was successful
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }).catch(function (err) {
+                // registration failed :(
+                console.log('ServiceWorker registration failed: ', err);
+            });
         });
-      });
-}
+    }
 
 })();

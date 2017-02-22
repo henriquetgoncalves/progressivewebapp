@@ -45,7 +45,7 @@ var filesToCache = [
   '/images/thunderstorm.png',
   '/images/wind.png',
     'https://publicdata-weather.firebaseio.com/austin.json',
-    'https://publicdata-weather.firebaseio.com/newyork.json'
+    'https://publicdata-weather.firebaseio.com/portland.json'
 ];
 
 self.addEventListener('fetch', function (e) {

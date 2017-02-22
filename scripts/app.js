@@ -189,7 +189,7 @@
             caches.match(url).then(function (response) {
                 if (response) {
                     response.json().then(function updateFromCache(json) {
-                        var results = json.query.results;
+                        var results = json.parse(request.response);
                         results.key = key;
                         results.label = label;
                         results.created = json.query.created;
@@ -198,25 +198,21 @@
                 }
             });
         }
-        // Fetch the latest data.
+        // Make the XHR to get the data, then update the card
         var request = new XMLHttpRequest();
         request.onreadystatechange = function () {
             if (request.readyState === XMLHttpRequest.DONE) {
                 if (request.status === 200) {
                     var response = JSON.parse(request.response);
-                    var results = response.query.results;
-                    results.key = key;
-                    results.label = label;
-                    results.created = response.query.created;
-                    app.updateForecastCard(results);
+                    response.key = key;
+                    response.label = label;
+                    app.updateForecastCard(response);
                 }
-            } else {
-                // Return the initial weather forecast since no data is available.
-                app.updateForecastCard(initialWeatherForecast);
             }
         };
         request.open('GET', url);
         request.send();
+        app.saveSelectedCities();
     };
 
     // Iterate all of the cards and attempt to get the latest forecast data

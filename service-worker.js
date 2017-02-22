@@ -47,16 +47,17 @@ var filesToCache = [
 
 self.addEventListener('fetch', function (e) {
     console.log('[ServiceWorker] Fetch', e.request.url);
-    var dataUrl = 'https://publicdata-weather.firebaseio.com/';
+    var dataUrl = 'https://henriquetgoncalves.github.io/'//'https://publicdata-weather.firebaseio.com/';
+    
     if (e.request.url.indexOf(dataUrl) === 0) {
-        e.respondWith(
-            fetch(e.request)
+        e.respondWith(fetch(e.request)
             .then(function (response) {
                 return caches.open(dataCacheName).then(function (cache) {
-                    cache.put(e.request.url, response.clone());
+                    cache.put(e.request.url, responseToCache);//response.clone());
                     console.log('[ServiceWorker] Fetched&Cached Data');
-                    return response;
-                });
+                    Var responseToCache = response.clone();
+                    return response;                    
+                });                
             })
         );
     } else {

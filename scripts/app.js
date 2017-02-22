@@ -51,11 +51,10 @@
                     temperatureMax: 55,
                     temperatureMin: 34
                 }
-      ]
+            ]
         }
     };
-    var app = {
-        isLoading: true,
+    var app = { isLoading: true,
         visibleCards: {},
         selectedCities: [],
         spinner: document.querySelector('.loader'),
@@ -93,6 +92,7 @@
             key: key,
             label: label
         });
+        app.saveSelectedCities();
         app.toggleAddDialog(false);
     });
 
@@ -208,6 +208,7 @@
     app.saveSelectedCities = function () {
         var selectedCities = JSON.stringify(app.selectedCities);
         // IMPORTANTE: See notes about use of localStorage.
+        alert(selectedCities);
         localStorage.selectedCities = selectedCities;
     };
 

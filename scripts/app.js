@@ -208,7 +208,7 @@
     app.saveSelectedCities = function () {
         var selectedCities = JSON.stringify(app.selectedCities);
         // IMPORTANTE: See notes about use of localStorage.
-        alert(selectedCities);
+        //alert(selectedCities);
         localStorage.selectedCities = selectedCities;
     };
 
@@ -243,7 +243,7 @@
     //Registrando o arquivo service-worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
-        navigator.serviceWorker.register('service-worker.js').then(function(registration) {
+        navigator.serviceWorker.register('./service-worker.js').then(function(registration) {
           // Registration was successful
           console.log('ServiceWorker registration successful with scope: ', registration.scope);
         }).catch(function(err) {

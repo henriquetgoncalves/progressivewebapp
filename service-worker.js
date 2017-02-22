@@ -27,7 +27,7 @@ self.addEventListener('activate', function (e) {
 });
 var filesToCache = [
   '/',
-  '/index.html',
+  './index.html',
   '/scripts/app.js',
   '/styles/inline.css',
   '/images/clear.png',
